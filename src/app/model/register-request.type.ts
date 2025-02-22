@@ -1,6 +1,6 @@
 import { FormControl } from "@angular/forms"
 
-export type RegisterRequestType = {
+export type RegisterFormType = {
 	nome: FormControl<string | null>
 	email: FormControl<string | null>
 	senha: FormControl<string | null>

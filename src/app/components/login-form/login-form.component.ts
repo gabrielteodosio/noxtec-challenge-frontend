@@ -16,9 +16,6 @@ export class LoginFormComponent {
 
   submitted = signal(false)
 
-  login = signal<string>('');
-  password = signal<string>('');
-
   constructor(private formBuilder: FormBuilder) {
     this.loginForm = this.formBuilder.group({
       login: ['', [Validators.required, Validators.email]],

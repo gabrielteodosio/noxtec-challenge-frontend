@@ -1,6 +1,12 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { catchError } from 'rxjs';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RegisterRequestType } from '../../model/register-request.type';
+
+import { User } from '../../model/user.type';
+import { RegisterFormType } from '../../model/register-request.type';
+
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register-form',
@@ -9,16 +15,13 @@ import { RegisterRequestType } from '../../model/register-request.type';
   styleUrl: './register-form.component.scss'
 })
 export class RegisterFormComponent {
+  authService = inject(AuthService);
 
-  registerForm: FormGroup<RegisterRequestType>;
+  registerForm: FormGroup<RegisterFormType>;
 
   submitted = signal(false);
 
-  nome = signal<string>('');
-  email = signal<string>('');
-  password = signal<string>('');
-
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private router: Router) {
     this.registerForm = this.formBuilder.group({
       nome: ['', [Validators.required]],
       email: ['', [Validators.email]],
@@ -41,10 +44,26 @@ export class RegisterFormComponent {
 
     // Here you would typically make an API call
     // this.userService.createUser(this.userForm.value).subscribe(...)
+    const formData = this.registerForm.value as User;
+
+    this.authService
+      .register(formData)
+      .pipe(
+        catchError((error) => {
+          console.error(error);
+          throw error;
+        })
+      )
+      .subscribe((user) => {
+        this.authService.user.set(user);
+
+        localStorage.setItem('savedUser', JSON.stringify(user));
+      });
 
     // Reset form after successful submission
     // this.registerForm.reset();
     this.submitted.set(false);
+    this.router.navigate(['/agenda']);
   }
 
   onReset() {

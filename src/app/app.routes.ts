@@ -1,6 +1,6 @@
 import { Route as AngularRoute } from '@angular/router';
 
-interface AppRoute extends AngularRoute {
+export interface AppRoute extends AngularRoute {
   name?: string
   showOnNav: boolean 
 }
