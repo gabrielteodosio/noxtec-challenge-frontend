@@ -1,1 +1,4 @@
-<p>agenda works!</p>
+<h1 class="mb-4 text-2xl">
+  Agenda
+</h1>
+<app-agenda-table [agenda]="agendaService.agenda() || []" />

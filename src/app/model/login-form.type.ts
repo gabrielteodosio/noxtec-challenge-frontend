@@ -1,6 +1,6 @@
 import { FormControl } from "@angular/forms";
 
-export type LoginRequestType = {
+export type LoginFormType = {
   login: FormControl<string | null>
   password: FormControl<string | null>
 };

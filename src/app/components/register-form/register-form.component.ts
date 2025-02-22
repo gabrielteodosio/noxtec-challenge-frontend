@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { User } from '../../model/user.type';
-import { RegisterFormType } from '../../model/register-request.type';
+import { RegisterFormType } from '../../model/register-form.type';
 
 import { AuthService } from '../../services/auth.service';
 

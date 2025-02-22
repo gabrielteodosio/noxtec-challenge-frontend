@@ -13,12 +13,12 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
   authService = inject(AuthService)
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     if (this.authService.user()) {
       this.router.navigate(['/agenda']);
     }
   }
-  
+
 }

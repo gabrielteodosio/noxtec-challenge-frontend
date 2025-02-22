@@ -8,15 +8,10 @@ import { env } from '../../environments/environment';
   providedIn: 'root'
 })
 export class AuthService {
-  baseUrl = signal<string>('');
-
   http = inject(HttpClient);
   user = signal<User | null>(null);
 
   constructor() {
-    const baseApiUrl = env.baseApiUrl;
-    this.baseUrl.set(baseApiUrl);
-
     const savedUserString = localStorage.getItem("savedUser");
     const savedUser: User | null = savedUserString ? JSON.parse(savedUserString) as User : null;
     if (savedUser) {
@@ -25,7 +20,7 @@ export class AuthService {
   }
 
   register(user: User) {
-    const url = this.baseUrl() + "/users";
+    const url = env.baseApiUrl + "/users";
     return this.http.post(url, user)
   }
 

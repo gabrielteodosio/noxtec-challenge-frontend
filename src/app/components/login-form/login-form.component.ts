@@ -2,7 +2,7 @@ import { Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { LoginRequestType } from '../../model/login-request.type';
+import { LoginFormType } from '../../model/login-form.type';
 
 @Component({
   selector: 'app-login-form',
@@ -12,7 +12,7 @@ import { LoginRequestType } from '../../model/login-request.type';
 })
 export class LoginFormComponent {
 
-  loginForm: FormGroup<LoginRequestType>;
+  loginForm: FormGroup<LoginFormType>;
 
   submitted = signal(false)
 
