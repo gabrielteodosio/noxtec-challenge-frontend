@@ -1,0 +1,12 @@
+<li appHilightCompletedTodo [isCompleted]="todo().completed" class="p-2 flex items-center">
+  <input
+    type="checkbox"
+    name="todoCompleted"
+    id="todo-{{ todo().id }}"
+    [checked]="todo().completed"
+    (change)="this.todoClicked()"
+  />
+  <label for="todo-{{ todo().id }}">
+    <span class="ml-2">{{ todo().title }}</span>
+  </label>
+</li>

@@ -1,3 +1,50 @@
-import { Routes } from '@angular/router';
+import { Route as AngularRoute } from '@angular/router';
 
-export const routes: Routes = [];
+interface AppRoute extends AngularRoute {
+  name?: string
+  showOnNav: boolean 
+}
+
+export const routes: AppRoute[] = [
+  {
+    path: '',
+    name: 'Home',
+    showOnNav: false,
+    pathMatch: 'full',
+    loadComponent: () => {
+      return import('./pages/home/home.component').then(m => m.HomeComponent);
+    },
+  },
+  {
+    path: 'login',
+    name: 'Login',
+    showOnNav: true,
+    loadComponent: () => {
+      return import('./pages/login/login.component').then(m => m.LoginComponent);
+    }
+  },
+  {
+    path: 'register',
+    name: 'Registrar',
+    showOnNav: false,
+    loadComponent: () => {
+      return import('./pages/register/register.component').then(m => m.RegisterComponent);
+    }
+  },
+  {
+    path: 'todos',
+    name: 'Todos',
+    showOnNav: true,
+    loadComponent: () => {
+      return import('./pages/todos/todos.component').then(m => m.TodosComponent);
+    },
+  },
+  {
+    path: 'agenda',
+    name: 'Agenda',
+    showOnNav: true,
+    loadComponent: () => {
+      return import('./pages/agenda/agenda.component').then(m => m.AgendaComponent);
+    }
+  },
+];
