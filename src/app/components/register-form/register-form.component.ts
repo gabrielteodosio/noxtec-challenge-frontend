@@ -40,10 +40,6 @@ export class RegisterFormComponent {
       return;
     }
 
-    console.log('Form Data: ', this.registerForm.value);
-
-    // Here you would typically make an API call
-    // this.userService.createUser(this.userForm.value).subscribe(...)
     const formData = this.registerForm.value as User;
 
     this.authService
@@ -54,16 +50,12 @@ export class RegisterFormComponent {
           throw error;
         })
       )
-      .subscribe((user) => {
-        this.authService.user.set(user);
-
-        localStorage.setItem('savedUser', JSON.stringify(user));
+      .subscribe(() => {
+        this.router.navigate(['/']);
       });
 
-    // Reset form after successful submission
-    // this.registerForm.reset();
+    this.registerForm.reset();
     this.submitted.set(false);
-    this.router.navigate(['/agenda']);
   }
 
   onReset() {

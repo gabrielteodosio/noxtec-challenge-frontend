@@ -7,7 +7,7 @@ import { AppRoute } from '../app.routes';
 })
 export class FilterRoutesByAuthPipe implements PipeTransform {
 
-  transform(routes: AppRoute[], user: User | null): AppRoute[] {
+  transform(routes: AppRoute[], token: string | null): AppRoute[] {
     const onlyLoggedInAllowedPaths = [
       "todos",
       "agenda",
@@ -18,7 +18,7 @@ export class FilterRoutesByAuthPipe implements PipeTransform {
       "register",
     ]
     
-    if (!user) {
+    if (!token) {
       return routes.filter(route => !onlyLoggedInAllowedPaths.includes(route.path as string));
     }
     

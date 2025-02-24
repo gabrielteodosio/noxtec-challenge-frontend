@@ -1,6 +1,7 @@
 import { Component, computed, inject, OnInit } from '@angular/core';
-import { ContatoRegisterFormComponent } from "../components/contato-register-form/contato-register-form.component";
 import { Router } from '@angular/router';
+
+import { ContatoRegisterFormComponent } from "../components/contato-register-form/contato-register-form.component";
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -10,9 +11,8 @@ import { AuthService } from '../services/auth.service';
   styleUrl: './contato-register.component.scss'
 })
 export class ContatoRegisterComponent implements OnInit {
-
   authService = inject(AuthService);
-  isUserLoggedIn = computed(() => this.authService.user() !== null);
+  isUserLoggedIn = computed(() => this.authService.token() !== null);
 
   constructor(private router: Router) { }
 
@@ -21,5 +21,4 @@ export class ContatoRegisterComponent implements OnInit {
       this.router.navigate(['/'])
     }
   }
-
 }

@@ -1,8 +1,8 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { RegisterFormComponent } from "../../components/register-form/register-form.component";
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -12,13 +12,13 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
   authService = inject(AuthService)
+  isUserLoggedIn = computed(() => this.authService.token() != null);
 
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-    if (this.authService.user()) {
+    if (this.isUserLoggedIn()) {
       this.router.navigate(['/agenda']);
     }
   }
-
 }

@@ -15,7 +15,7 @@ import { FilterRoutesByAuthPipe } from '../../pipes/filter-routes-by-auth.pipe';
 export class HeaderComponent {
   authService = inject(AuthService);
 
-  isUserLogged = computed(() => this.authService.user() != null);
+  isUserLoggedIn = computed(() => this.authService.token() != null);
 
   title = signal('Desafio Noxtec')
   appRoutes = routes.filter(route => route.showOnNav)

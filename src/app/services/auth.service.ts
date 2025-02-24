@@ -9,14 +9,18 @@ import { env } from '../../environments/environment';
 })
 export class AuthService {
   http = inject(HttpClient);
-  user = signal<User | null>(null);
+  token = signal<string | null>(null);
 
   constructor() {
-    const savedUserString = localStorage.getItem("savedUser");
-    const savedUser: User | null = savedUserString ? JSON.parse(savedUserString) as User : null;
-    if (savedUser) {
-      this.user.set(savedUser);
+    const savedToken = localStorage.getItem("token");
+    if (savedToken) {
+      this.token.set(savedToken);
     }
+  }
+
+  login(email: String, senha: String) {
+    const url = env.baseApiUrl + "/auth/login";
+    return this.http.post<{ token: string }>(url, { email, senha })
   }
 
   register(user: User) {
@@ -25,7 +29,7 @@ export class AuthService {
   }
 
   logOutUser() {
-    localStorage.setItem('savedUser', 'null')
-    this.user.set(null)
+    localStorage.removeItem('token')
+    this.token.set(null)
   }
 }

@@ -1,8 +1,11 @@
-import { Component, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, inject, signal } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { catchError } from 'rxjs';
 
 import { LoginFormType } from '../../model/login-form.type';
+
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login-form',
@@ -11,12 +14,13 @@ import { LoginFormType } from '../../model/login-form.type';
   styleUrl: './login-form.component.scss'
 })
 export class LoginFormComponent {
+  authService = inject(AuthService);
 
   loginForm: FormGroup<LoginFormType>;
 
   submitted = signal(false)
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private router: Router) {
     this.loginForm = this.formBuilder.group({
       login: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
@@ -29,18 +33,29 @@ export class LoginFormComponent {
 
   onSubmit() {
     this.submitted.set(true);
-
-    if (this.loginForm.invalid) {
+    
+    const { login: email, password: senha } = this.loginForm.value;
+    if (this.loginForm.invalid || !email || !senha) {
       return;
     }
 
-    console.log('Form Data: ', this.loginForm.value);
+    this.authService
+      .login(email, senha)
+      .pipe(
+        catchError((error) => {
+          console.error(error);
+          throw error;
+        })
+      )
+      .subscribe((data) => {
+        this.authService.token.set(data.token);
 
-    // Here you would typically make an API call
-    // this.userService.createUser(this.userForm.value).subscribe(...)
+        localStorage.setItem('token', data.token);
+        this.router.navigate(['/agenda']);
+      });
 
-    // Reset form after successful submission
-    // this.loginForm.reset();
+    this.router.navigate(['/agenda']);
+    this.loginForm.reset();
     this.submitted.set(false);
   }
 
