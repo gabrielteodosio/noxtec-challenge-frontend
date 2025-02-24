@@ -5,7 +5,7 @@ import { Contato } from '../model/contato.type';
 
 import { AuthService } from './auth.service';
 
-import { env } from '../../environments/environment';
+import { environment as env } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
