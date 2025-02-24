@@ -6,7 +6,6 @@ import { Contato } from '../model/contato.type';
 import { AuthService } from './auth.service';
 
 import { env } from '../../environments/environment';
-import { catchError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +26,19 @@ export class AgendaService {
     });
 
     return this.http.get<Array<Contato>>(url, {
+      headers,
+      withCredentials: true,
+    });
+  }
+
+  fetchContato(contatoId: string) {
+    const url = `${env.baseApiUrl}/contacts/${contatoId}`;
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.authService.token()}`,
+    });
+
+    return this.http.get<Contato>(url, {
       headers,
       withCredentials: true,
     });

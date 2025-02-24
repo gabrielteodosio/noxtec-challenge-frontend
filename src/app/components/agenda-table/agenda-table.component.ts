@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import { FormatPhonePipe } from '../../pipes/format-phone.pipe';
 
@@ -6,6 +6,7 @@ import { FormatDatePipe } from '../../format-date.pipe';
 import { Contato } from '../../model/contato.type';
 import { AgendaService } from '../../services/agenda.service';
 import { catchError } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-agenda-table',
@@ -16,7 +17,7 @@ import { catchError } from 'rxjs';
 export class AgendaTableComponent {
   agendaService = inject(AgendaService);
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   onDeleteContato(contato: Contato) {
     if (!contato.id) return;
@@ -32,6 +33,12 @@ export class AgendaTableComponent {
       .subscribe((_contato) => {
         this.refreshAgenda()
       })
+  }
+
+  onEditContato(contato: Contato) {
+    if (!contato.id) return;
+    
+    this.router.navigate([`/agenda/editar-contato/${contato.id}`])
   }
 
   refreshAgenda() {

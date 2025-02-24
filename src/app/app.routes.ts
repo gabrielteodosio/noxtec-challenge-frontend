@@ -64,6 +64,14 @@ export const routes: AppRoute[] = [
           return import('./pages/novo-contato/novo-contato.component').then(m => m.NovoContatoComponent);
         }
       },
+      {
+        path: 'editar-contato/:contato-id',
+        name: 'Editar Contato',
+        showOnNav: false,
+        loadComponent: () => {
+          return import('./pages/novo-contato/novo-contato.component').then(m => m.NovoContatoComponent);
+        }
+      },
     ]),
   },
 ];

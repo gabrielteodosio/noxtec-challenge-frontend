@@ -1,9 +1,9 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ContactFormType } from '../../model/new-contact-form.type';
 import { AgendaService } from '../../services/agenda.service';
 import { catchError } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-contato-register-form',
@@ -11,12 +11,14 @@ import { Router } from '@angular/router';
   templateUrl: './contato-register-form.component.html',
   styleUrl: './contato-register-form.component.scss'
 })
-export class ContatoRegisterFormComponent {
+export class ContatoRegisterFormComponent implements OnInit {
+  activeRoute = inject(ActivatedRoute);
   agendaService = inject(AgendaService);
 
   newContactForm: FormGroup<ContactFormType>;
 
   submitted = signal(false);
+  isEdditing = signal(false);
 
   constructor(private formBuilder: FormBuilder, private router: Router) {
     this.newContactForm = this.formBuilder.group({
@@ -25,6 +27,32 @@ export class ContatoRegisterFormComponent {
       celular: [''],
       telefone: [''],
     })
+  }
+
+  ngOnInit(): void {
+    const contatoId = this.activeRoute.snapshot.paramMap.get('contato-id')
+
+    if (!!contatoId) {
+      this.isEdditing.set(true);
+
+      this.agendaService
+        .fetchContato(contatoId)
+        .pipe(
+          catchError((error) => {
+            console.error(error);
+            throw error;
+          })
+        )
+        .subscribe((contato) => {
+          this.newContactForm.setValue({
+            nome: contato.nome || '',
+            email: contato.email || '',
+            celular: contato.celular || '',
+            telefone: contato.telefone || '',
+          });
+        });
+    }
+
   }
 
   get f() {
@@ -36,23 +64,47 @@ export class ContatoRegisterFormComponent {
 
     const { nome, email, celular, telefone } = this.newContactForm.value;
 
-    this.agendaService
-      .criarContato({
-        nome: nome || undefined,
-        email: email || undefined,
-        celular: celular || undefined,
-        telefone: telefone || undefined,
-      })
-      .pipe(
-        catchError((error) => {
-          console.error(error);
-          throw error;
+    if (this.isEdditing()) {
+      const contatoId = this.activeRoute.snapshot.paramMap.get('contato-id')
+
+      if (contatoId) {
+        this.agendaService
+          .editarContato(contatoId, {
+            nome: nome || undefined,
+            email: email || undefined,
+            celular: celular || undefined,
+            telefone: telefone || undefined,
+          })
+          .pipe(
+            catchError((error) => {
+              console.error(error);
+              throw error;
+            })
+          )
+          .subscribe((data) => {
+            this.router.navigate(['/agenda']);
+            this.newContactForm.reset();
+          });
+      }
+    } else {
+      this.agendaService
+        .criarContato({
+          nome: nome || undefined,
+          email: email || undefined,
+          celular: celular || undefined,
+          telefone: telefone || undefined,
         })
-      )
-      .subscribe((data) => {
-        this.router.navigate(['/agenda']);
-        this.newContactForm.reset();
-      });
+        .pipe(
+          catchError((error) => {
+            console.error(error);
+            throw error;
+          })
+        )
+        .subscribe((data) => {
+          this.router.navigate(['/agenda']);
+          this.newContactForm.reset();
+        });
+    }
 
     this.submitted.set(false);
   }
