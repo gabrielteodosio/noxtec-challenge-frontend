@@ -1,59 +1,32 @@
-# ChallengeFrontend
+# Challenge Frontend
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.8.
 
-## Development server
+## How to run this project?
 
-To start a local development server, run:
+Follow the steps below so you can use this application as intended:
 
+1. You will need to have installed in your machine Node.js, I'm using v22.11.0. To download a version visit [Node.js website](https://nodejs.org/en/download);
+2. Create a folder called Noxtec;
+3. Clone this repository inside this folder and after completing the [backend](https://github.com/gabrielteodosio/noxtec-challenge-backend) tutorial, in its `README.md` file, come back here and continue;
+``` bash
+git clone git@github.com:gabrielteodosio/noxtec-challenge-frontend.git
+```
+4. Install all the project dependencies:
 ```bash
+npm install
+```
+5. Create an `.env` file at the root of the project, which needs to have at least one Variable:
+```bash
+BASE_API_URL=http://localhost:8080/api
+```
+6. Open a terminal or a powershell and run the script config to generate a file with the correctly loaded Env Variables:
+```bash
+npm run config
+```
+7. Great! Now you just need to run start script, or the `ng serve` in the root of the project (just choose one of the following): 
+```bash
+npm run ng -- serve
+npm run start
 ng serve
 ```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
