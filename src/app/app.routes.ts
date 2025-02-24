@@ -1,4 +1,5 @@
 import { Route as AngularRoute } from '@angular/router';
+import { authGuard } from './guards/auth.guard';
 
 export interface AppRoute extends AngularRoute {
   name?: string
@@ -35,6 +36,7 @@ export const routes: AppRoute[] = [
     path: 'todos',
     name: 'Todos',
     showOnNav: true,
+    canActivate: [authGuard],
     loadComponent: () => {
       return import('./pages/todos/todos.component').then(m => m.TodosComponent);
     },
@@ -43,6 +45,7 @@ export const routes: AppRoute[] = [
     path: 'agenda',
     name: 'Agenda',
     showOnNav: true,
+    canActivate: [authGuard],
     loadChildren: () => ([
       {
         path: '',

@@ -19,13 +19,11 @@ export class AgendaComponent implements OnInit {
 
   isUserLoggedIn = computed(() => this.authService.token() !== null);
 
-  constructor(private router: Router) { }
-
   ngOnInit(): void {
-    if (!this.isUserLoggedIn()) {
-      this.router.navigate(['/'])
-    }
+    this.fetchAgenda();
+  }
 
+  fetchAgenda() {
     this.agendaService.fetchAgenda()
       .pipe(
         catchError((error) => {

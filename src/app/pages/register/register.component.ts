@@ -1,7 +1,8 @@
+import { RegisterFormComponent } from "../../components/register-form/register-form.component";
 import { Component, computed, inject, OnInit } from '@angular/core';
+
 import { Router } from '@angular/router';
 
-import { RegisterFormComponent } from "../../components/register-form/register-form.component";
 import { AuthService } from '../../services/auth.service';
 
 @Component({
