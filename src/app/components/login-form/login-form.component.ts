@@ -52,10 +52,9 @@ export class LoginFormComponent {
 
         localStorage.setItem('token', data.token);
         this.router.navigate(['/agenda']);
+        this.loginForm.reset();
       });
 
-    this.router.navigate(['/agenda']);
-    this.loginForm.reset();
     this.submitted.set(false);
   }
 

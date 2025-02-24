@@ -1,9 +1,11 @@
-import { Component, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 
 import { FormatPhonePipe } from '../../pipes/format-phone.pipe';
 
 import { FormatDatePipe } from '../../format-date.pipe';
 import { Contato } from '../../model/contato.type';
+import { AgendaService } from '../../services/agenda.service';
+import { catchError } from 'rxjs';
 
 @Component({
   selector: 'app-agenda-table',
@@ -12,7 +14,37 @@ import { Contato } from '../../model/contato.type';
   styleUrl: './agenda-table.component.scss'
 })
 export class AgendaTableComponent {
-  agenda = input<Contato[]>();
+  agendaService = inject(AgendaService);
 
-  constructor() {}
+  constructor() { }
+
+  onDeleteContato(contato: Contato) {
+    if (!contato.id) return;
+
+    this.agendaService
+      .excluirContato(contato.id)
+      .pipe(
+        catchError((error) => {
+          console.error(error);
+          throw error;
+        })
+      )
+      .subscribe((_contato) => {
+        this.refreshAgenda()
+      })
+  }
+
+  refreshAgenda() {
+    this.agendaService
+      .fetchAgenda()
+      .pipe(
+        catchError((error) => {
+          console.error(error);
+          throw error;
+        })
+      )
+      .subscribe((agenda) => {
+        this.agendaService.agenda.set(agenda);
+      });
+  }
 }

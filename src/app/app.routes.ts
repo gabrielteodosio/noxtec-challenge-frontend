@@ -2,7 +2,7 @@ import { Route as AngularRoute } from '@angular/router';
 
 export interface AppRoute extends AngularRoute {
   name?: string
-  showOnNav: boolean 
+  showOnNav: boolean
 }
 
 export const routes: AppRoute[] = [
@@ -43,8 +43,24 @@ export const routes: AppRoute[] = [
     path: 'agenda',
     name: 'Agenda',
     showOnNav: true,
-    loadComponent: () => {
-      return import('./pages/agenda/agenda.component').then(m => m.AgendaComponent);
-    }
+    loadChildren: () => ([
+      {
+        path: '',
+        name: 'Agenda',
+        showOnNav: false,
+        pathMatch: 'full',
+        loadComponent: () => {
+          return import('./pages/agenda/agenda.component').then(m => m.AgendaComponent);
+        }
+      },
+      {
+        path: 'novo-contato',
+        name: 'Novo Contato',
+        showOnNav: false,
+        loadComponent: () => {
+          return import('./pages/novo-contato/novo-contato.component').then(m => m.NovoContatoComponent);
+        }
+      },
+    ]),
   },
 ];

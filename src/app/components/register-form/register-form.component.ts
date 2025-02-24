@@ -52,9 +52,9 @@ export class RegisterFormComponent {
       )
       .subscribe(() => {
         this.router.navigate(['/']);
+        this.registerForm.reset();
       });
 
-    this.registerForm.reset();
     this.submitted.set(false);
   }
 

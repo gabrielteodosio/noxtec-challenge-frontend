@@ -1,1 +1,126 @@
-<p>contato-register-form works!</p>
+<div class="w-full max-w-sm mx-auto my-auto p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8">
+  <form [formGroup]="newContactForm" class="space-y-6" (submit)="onSubmit()">
+    <div>
+      <label for="login-field" class="block mb-2 text-sm font-medium text-gray-900">
+        Nome <span class="text-[red]">*</span>
+      </label>
+      <div class="relative">
+        <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+          <svg class="w-4 h-4" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#6B7280">
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+            <g id="SVGRepo_iconCarrier">
+              <path d="M8 7C9.65685 7 11 5.65685 11 4C11 2.34315 9.65685 1 8 1C6.34315 1 5 2.34315 5 4C5 5.65685 6.34315 7 8 7Z"
+                fill="#6B7280"></path>
+              <path d="M14 12C14 10.3431 12.6569 9 11 9H5C3.34315 9 2 10.3431 2 12V15H14V12Z" fill="#6B7280"></path>
+            </g>
+          </svg>
+        </div>
+        <input
+          type="text"
+          name="nome"
+          id="nome-field"
+          formControlName="nome"
+          placeholder="Jhon Doe"
+          aria-describedby="helper-text-explanation"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5"
+        >
+      </div>
+    </div>
+    
+    <div>
+      <label for="login-field" class="block mb-2 text-sm font-medium text-gray-900">
+        Email
+      </label>
+      <div class="relative">
+        <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+          <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
+            <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z"/>
+            <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"/>
+          </svg>
+        </div>
+        <input
+          type="email"
+          name="email"
+          id="email-field"
+          formControlName="email"
+          placeholder="email@email.com"
+          aria-describedby="helper-text-explanation"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5"
+        >
+      </div>
+    </div>
+
+    <div>
+      <label for="login-field" class="block mb-2 text-sm font-medium text-gray-900">
+        Celular
+      </label>
+      <div class="relative">
+        <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+          <svg fill="#6B7280" viewBox="0 0 24 24" id="phone-device" data-name="Flat Color" xmlns="http://www.w3.org/2000/svg"
+            class="icon flat-color w-4 h-4">
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+            <g id="SVGRepo_iconCarrier">
+              <rect id="primary" x="5" y="2" width="14" height="20" rx="2" style="fill: #6B7280;"></rect>
+              <circle id="secondary" cx="12" cy="18" r="1.5" style="fill: #ffffff;"></circle>
+            </g>
+          </svg>
+        </div>
+        <input
+          type="text"
+          name="celular"
+          id="celular-field"
+          formControlName="celular"
+          placeholder="81900000000"
+          aria-describedby="helper-text-explanation"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5"
+        >
+      </div>
+      <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500">
+        Favor inserir apenas números
+      </p>
+    </div>
+
+    <div>
+      <label for="login-field" class="block mb-2 text-sm font-medium text-gray-900">
+        Telefone
+      </label>
+      <div class="relative">
+        <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#6B7280">
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+            <g id="SVGRepo_iconCarrier">
+              <path
+                d="M16.5562 12.9062L16.1007 13.359C16.1007 13.359 15.0181 14.4355 12.0631 11.4972C9.10812 8.55901 10.1907 7.48257 10.1907 7.48257L10.4775 7.19738C11.1841 6.49484 11.2507 5.36691 10.6342 4.54348L9.37326 2.85908C8.61028 1.83992 7.13596 1.70529 6.26145 2.57483L4.69185 4.13552C4.25823 4.56668 3.96765 5.12559 4.00289 5.74561C4.09304 7.33182 4.81071 10.7447 8.81536 14.7266C13.0621 18.9492 17.0468 19.117 18.6763 18.9651C19.1917 18.9171 19.6399 18.6546 20.0011 18.2954L21.4217 16.883C22.3806 15.9295 22.1102 14.2949 20.8833 13.628L18.9728 12.5894C18.1672 12.1515 17.1858 12.2801 16.5562 12.9062Z"
+                fill="#6B7280"></path>
+            </g>
+          </svg>
+        </div>
+        <input
+          type="text"
+          name="telefone"
+          id="telefone-field"
+          formControlName="telefone"
+          placeholder="8134531588"
+          aria-describedby="helper-text-explanation"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5"
+        >
+      </div>
+      <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500">
+        Favor inserir apenas números;
+      </p>
+    </div>
+  
+    @if (submitted() && (f.nome.errors || f.email.errors || f.celular.errors || f.telefone.errors)) {
+      <div>
+        <p>Erro na criação do Contato</p>
+      </div>
+    }
+    
+    <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+      Criar
+    </button>
+  </form>
+</div>

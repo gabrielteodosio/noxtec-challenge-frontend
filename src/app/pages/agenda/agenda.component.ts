@@ -1,5 +1,5 @@
 import { Component, computed, inject, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { catchError } from 'rxjs';
 
 import { AgendaTableComponent } from "../../components/agenda-table/agenda-table.component";
@@ -9,7 +9,7 @@ import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-agenda',
-  imports: [AgendaTableComponent],
+  imports: [RouterLink, AgendaTableComponent],
   templateUrl: './agenda.component.html',
   styleUrl: './agenda.component.scss'
 })
