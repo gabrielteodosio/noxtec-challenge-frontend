@@ -40,13 +40,13 @@
               {{ contato.email || '-' }}
             </td>
             <td class="px-6 py-4">
-              {{ (contato.celular || '') | formatPhone }}
+              {{ (contato.celular || '-') | formatPhone }}
             </td>
             <td class="px-6 py-4">
-              {{ (contato.telefone || '') | formatPhone }}
+              {{ (contato.telefone || '-') | formatPhone }}
             </td>
             <td class="px-6 py-4">
-              {{ contato.dataHoraCriacao | date: 'dd/mm/yyyy' }}
+              {{ contato.dataHoraCriacao | formatDate }}
             </td>
             <td class="px-6 py-4">
               <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
